@@ -38,13 +38,14 @@ Biomarkers_unmethylated = Biomarkers_unmethylated_breast
 #opening worksheet with cg probes and values
 print('==============================Your file is being processed xxPYxx=====================\n')
 results_dict = {}
+import csv
 with open(str(sys.argv[1]), 'r') as csvfile:
     results = csv.reader(csvfile, delimiter=',')
     for row in results:
         if len(row) == 2 and row[0].startswith('cg') and (row[1].startswith('0') or row[1].startswith('1')):
             value = float(row[1])
             results_dict[row[0]] = value
-
+print('==============================Checking Biomarkers_methylated xxPYxx =====================\n')
 for i in Biomarkers_methylated:
     if type(results_dict[i]) is float:
         n += 1
@@ -53,6 +54,7 @@ for i in Biomarkers_methylated:
         else:
             if results_dict[i] >= Biomarkers_methylated[i]:
                 positive_biomarkers += 1
+print('==============================Checking Biomarkers_unmethylated xxPYxx =====================\n')
 
 for i in Biomarkers_unmethylated:
     if type(results_dict[i]) is float:
@@ -73,6 +75,7 @@ if m >= 0:
 #-------------------------------------------------------------------------------------------------
 #writing results
 print('==============================Writing results into file xxPYxx =====================\n')
+import csv
 results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
 results.write(str(sys.argv[1]))
 results.write(',')
