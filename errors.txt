@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py", line 42, in <module>
+    with open(str(sys.argv[1]), 'r') as csvfile:
+IOError: [Errno 2] No such file or directory: 'GSM1941862-489996.csv'
