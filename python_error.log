@@ -1,0 +1,82 @@
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py", line 82, in <module>
+    results.write(str(sys.argv[2]))
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py", line 85, in <module>
+    results.write(str(sys.argv[2]))
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py", line 85, in <module>
+    results.write(str(sys.argv[2]))
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 50, in <module>
+    if type(results_dict[i]) is float:
+KeyError: 'cg02179478'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+Traceback (most recent call last):
+  File "/var/www/html/oncoeval/uploads/OncoEval_BCV2.py", line 79, in <module>
+    results = open("/Applications/MAMP/htdocs/CX3/uploads/Results.csv", "w")
+IOError: [Errno 2] No such file or directory: '/Applications/MAMP/htdocs/CX3/uploads/Results.csv'
+python: can't open file '/var/www/html/oncoeval/pyt/OncoEval_BCV2.py': [Errno 2] No such file or directory
+python: can't open file '/var/www/html/oncoeval/pyt/OncoEval_BCV2.py': [Errno 2] No such file or directory

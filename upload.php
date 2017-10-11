@@ -16,14 +16,19 @@ if (isset($_POST['submit'])) {
     //$file = $_FILES['file'];
 
     //Collecting inforamtion on the file being submitted
+    $cancer_type=$_POST['cancer_type'];
     $fileName = $_FILES['file']['name'];
     $fileTmpName = $_FILES['file']['tmp_name'];
     $fileSize = $_FILES['file']['size'];
     $fileError = $_FILES['file']['error'];
     $fileType = $_FILES['file']['type'];
-    $fileDestination = '/Applications/MAMP/htdocs/CX3/uploads/';
+    $fileDestination = '/var/www/html/oncoeval/uploads/';
     $wholepath= $fileDestination.$fileName;
-    $python_csv='/Applications/MAMP/htdocs/CX3/uploads/Results.csv';
+    $python_csv='/var/www/html/oncoeval/pyt/Results.csv';
+    $servername = "localhost:8889";
+    $username = "root";
+    $password = "root";
+
 
 
     //Getting file type extension
@@ -42,56 +47,431 @@ if (isset($_POST['submit'])) {
         if ($fileError === 0) {
             if($fileSize < 100000000) {
 
-          if(is_uploaded_file($fileTmpName))
-          {//echo "================================file uploaded=============================\n";
-          }
-          if (move_uploaded_file($fileTmpName,"/Applications/MAMP/htdocs/CX3/uploads/".$fileName))
+       // if(is_uploaded_file($fileTmpName))
+         // {echo "================================file uploaded=============================\n";
+         // }
+          if (move_uploaded_file($fileTmpName,"/var/www/html/oncoeval/uploads/".$fileName))
 
-          {
-
-               //echo "==========================================Your file is successfully moved=============================\n";
-
-               //echo "==========================================Initiating Python script =============================\n";
-              shell_exec ("python /Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py $wholepath");
+          { echo"file moved";
+            if ($cancer_type=='Breast')
+            {
+                shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_Breast_Only.py $wholepath");
 
 
-            shell_exec ("python /Applications/MAMP/htdocs/CX3/uploads/OncoEval_BCV2.py $wholepath 2>> ./python_error.log");
+            shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_BCV2.py $wholepath 2>> ./python_error.log");
 
-            // echo "================You fiile is being processedXPHPXXX ==========================\n";
+
 
 //Reading form CSV  Result file and getting the Biomarkers
              if (($handle = fopen($python_csv, "r")) !== FALSE) {
                  while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
                         $pyout= $data[0];
-                           echo "<br /> <br />Number of Positve Biomarkers in your file was :  ==>".$pyout;
+                           echo "<br /> <br />Number of Positve Biomarkers in your file is :  ==> ".$pyout;
                            echo "<br />";
+                           echo "Cancer type selected is ". $cancer_type. " cancer";
+                           echo "<br />";
+                           echo "<br />";
+
                     // }
                  }
                fclose($handle);
+
+               if ($pyout >=0 && $pyout<=3)
+               {
+                 echo "<br>Suggested Treatments: NA <br />";
+                 echo "<br />";
+                echo "Treatments to Avoid : NA <br />";
+                echo "<br />";
+                }
+                elseif ($pyout >=4 && $pyout<=6)
+                {
+                  echo "<br>Suggested Treatments: Radiation Therapy, Simple Mastectomy or Lumpectomy <br />";
+                  echo "<br />";
+                   echo "Treatments to Avoid : Modified Radical Mastectomy <br />";
+                   echo "<br />";
+                }
+                elseif (($pyout >=7 && $pyout<=9))
+                {
+                  echo "<br>Suggested Treatments: Post-Op Drug Treatment<br />";
+                  echo "<br />";
+                   echo "Treatments to Avoid : NA <br />";
+                   echo "<br />";
+                }
+                echo "<table border=\"1\">\n";
+                echo "<tr><th bgcolor=\"#CCCCFF\">Positive bio Marker \</br> Life expectancy</th>
+                          <th bgcolor=\"#CCCCFF\">0 to 3 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">4 to 6 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">7 to 9 Positive biomarkers</th>
+                </tr>";
+
+              echo "<tr>
+                <td align=\"left\">1 Year</td>
+                <td align=\"left\">90-95%</td>
+                <td align=\"left\">95-100%</td>
+                <td align=\"left\">95-100%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">2 Years</td>
+                <td align=\"left\">80-85%</td>
+                <td align=\"left\">95%</td>
+                <td align=\"left\">95-100%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">3 Years</td>
+                <td align=\"left\">60-65%</td>
+                <td align=\"left\">85-90%</td>
+                <td align=\"left\">95%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">4 Years</td>
+                <td align=\"left\">50%</td>
+                <td align=\"left\">80-85%</td>
+                <td align=\"left\">90-95%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">5 Years</td>
+                <td align=\"left\">40%</td>
+                <td align=\"left\">75-80%</td>
+                <td align=\"left\">90%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">6 Years</td>
+                <td align=\"left\">35%</td>
+                <td align=\"left\">75%</td>
+                <td align=\"left\">85-90%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">7 Years</td>
+                <td align=\"left\">25-30%</td>
+                <td align=\"left\">70%</td>
+                <td align=\"left\">85%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">8 Years</td>
+                <td align=\"left\">20%</td>
+                <td align=\"left\">60-65%</td>
+                <td align=\"left\">80-85%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">9 Years</td>
+                <td align=\"left\">15%</td>
+                <td align=\"left\">55%</td>
+                <td align=\"left\">75-80%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">10 Years</td>
+                <td align=\"left\">5%</td>
+                <td align=\"left\">40-45%</td>
+                <td align=\"left\">70%</td>
+                </tr>
+                </table>";
+              }
+              //Lung cancer
+              elseif ($cancer_type=='Lung')
+              {
+                 shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_Lung_Only.py $wholepath");
+
+
+             shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_BCV2.py $wholepath 2>> ./python_error.log");
+
+
+ //Reading form CSV  Result file and getting the Biomarkers
+              if (($handle = fopen($python_csv, "r")) !== FALSE) {
+                  while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
+                         $pyout= $data[0];
+                            echo "<br /> <br />Number of Positve Biomarkers in your file is :  ==> ".$pyout;
+                            echo "<br />";
+                            echo "<br />";
+                            echo "Cancer type selected is ". $cancer_type. " cancer";
+                            echo "<br />";
+                     // }
+                  }
+                fclose($handle);
+
+                if ($pyout >=0 && $pyout<=3)
+                {
+                  echo "<br>Suggested Individual Chemotherapies: NA <br />";
+                  echo "<br />";
+                 echo "Suggested Combination Chemotherapies: NA <br />";
+                 echo "<br />";
+                 echo "Suggested Therapies to Avoid: NA <br />";
+                 echo "<br />";
+                 }
+                 elseif ($pyout >=4 && $pyout<=5)
+                 {
+                   echo "<br>Suggested Individual Chemotherapies: NA <br />";
+                   echo "<br />";
+                  echo "Suggested Combination Chemotherapies: NA <br />";
+                  echo "<br />";
+                  echo "Suggested Therapies to Avoid: NA <br />";
+                  echo "<br />";
+                 }
+                 elseif (($pyout >=6 && $pyout<=7))
+                 {
+                   echo "<br>Suggested Individual Chemotherapies: Carboplatin <br />";
+                   echo "<br />";
+                  echo "Suggested Combination Chemotherapies: NA <br />";
+                  echo "<br />";
+                  echo "Suggested Therapies to Avoid: NA <br />";
+                  echo "<br />";
+                 }
+                 elseif (($pyout >=8 && $pyout<=10))
+                 {
+                   echo "<br>Suggested Individual Chemotherapies: Cisplatin <br />";
+                   echo "<br />";
+                  echo "Suggested Combination Chemotherapies: Cisplatin and Vinorelbine <br />";
+                  echo "<br />";
+                  echo "Suggested Therapies to Avoid: NA <br />";
+                  echo "<br />";
+                }
+                elseif (($pyout >=11 && $pyout<=16))
+                {
+                echo "<br>Suggested Individual Chemotherapies: NA <br />";
+                echo "<br />";
+                echo "Suggested Combination Chemotherapies: NA <br />";
+                echo "<br />";
+                echo "Suggested Therapies to Avoid: Radiation Therapy <br />";
+                echo "<br />";
+                }
+                echo "Predictive Treatment Analysis for Lung Cancer (Non-Small Cell)";
+                echo "<table border=\"1\">\n";
+                echo "<tr><th bgcolor=\"#CCCCFF\">Positive bio Marker \</br> Life expectancy</th>
+                          <th bgcolor=\"#CCCCFF\">0 to 3 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">4 to 5 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">6 to 7 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">8 to 10 Positive biomarkers</th>
+                          <th bgcolor=\"#CCCCFF\">11 to 16 Positive biomarkers</th>
+
+                </tr>";
+
+              echo "<tr>
+                <td align=\"left\">1 Year</td>
+                <td align=\"left\">75-80%</td>
+                <td align=\"left\">80%</td>
+                <td align=\"left\">85%</td>
+                <td align=\"left\">85-90%</td>
+                <td align=\"left\">90-95%</td>
+                </tr>
+                <tr>
+                <td align=\"left\">2 Years</td>
+                <td align=\"left\">55-60%</td>
+                <td align=\"left\">60-65%</td>
+                <td align=\"left\">70%</td>
+                <td align=\"left\">75%</td>
+                <td align=\"left\">80-85%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">3 Years</td>
+                <td align=\"left\">40-45%</td>
+                <td align=\"left\">45-50%</td>
+                <td align=\"left\">55-60%</td>
+                <td align=\"left\">65%</td>
+                <td align=\"left\">70-75%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">4 Years</td>
+                <td align=\"left\">30-35%</td>
+                <td align=\"left\">35-40%</td>
+                <td align=\"left\">45-50%</td>
+                <td align=\"left\">55-60%</td>
+                <td align=\"left\">65-70%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">5 Years</td>
+                <td align=\"left\">20-25%</td>
+                <td align=\"left\">25-30%</td>
+                <td align=\"left\">40%</td>
+                <td align=\"left\">45-50%</td>
+                <td align=\"left\">60%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">6 Years</td>
+                <td align=\"left\">15-20%</td>
+                <td align=\"left\">20-25%</td>
+                <td align=\"left\">35%</td>
+                <td align=\"left\">40-45%</td>
+                <td align=\"left\">55%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">7 Years</td>
+                <td align=\"left\">15%</td>
+                <td align=\"left\">20%</td>
+                <td align=\"left\">30-35%</td>
+                <td align=\"left\">40%</td>
+                <td align=\"left\">50-55%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">8 Years</td>
+                <td align=\"left\">10-15%</td>
+                <td align=\"left\">15-20%</td>
+                <td align=\"left\">25-30%</td>
+                <td align=\"left\">35%</td>
+                <td align=\"left\">45-50%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">>9 Years</td>
+                <td align=\"left\">>10-15%</td>
+                <td align=\"left\">>15-20%</td>
+                <td align=\"left\">>25-30%</td>
+                <td align=\"left\">35%</td>
+                <td align=\"left\">40-45%</td>
+
+                </tr>
+                <tr>
+                <td align=\"left\">10 Years</td>
+                <td align=\"left\">5-10%</td>
+                <td align=\"left\">10%</td>
+                <td align=\"left\">15-20%</td>
+                <td align=\"left\">25-30%</td>
+                <td align=\"left\">40%</td>
+
+                </tr>
+                </table>";
+              }
+              //For Melanoma
+              elseif ($cancer_type=='Melanoma') {
+
+               shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_Melanoma_Only.py $wholepath");
+
+
+             shell_exec ("python /var/www/html/oncoeval/pyt/OncoEval_BCV2.py $wholepath 2>> ./python_error.log");
+
+
+ //Reading form CSV  Result file and getting the Biomarkers
+              if (($handle = fopen($python_csv, "r")) !== FALSE) {
+                  while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
+                         $pyout= $data[0];
+                            echo "<br /> <br />Number of Positve Biomarkers in your file is :  ==> ".$pyout;
+                            echo "<br />";
+                            echo "<br />";
+                            echo "Cancer type selected is ". $cancer_type. " cancer";
+                            echo "<br />";
+                  }
+                fclose($handle);
+
+                if ($pyout >=0 && $pyout<=14)
+                {
+                  echo "<br>Suggested General and Surgical Therapies: Radiation Therapy <br />";
+                  echo "<br />";
+                 }
+
+              //Table for Melanoma
+              echo " Predictive Treatment Analysis for Melanoma";
+              echo "<table border=\"1\">\n";
+              echo "<tr><th bgcolor=\"#CCCCFF\">Positive bio Marker \</br> Life expectancy</th>
+                        <th bgcolor=\"#CCCCFF\">0 to 3 Positive biomarkers</th>
+                        <th bgcolor=\"#CCCCFF\">4 to 5 Positive biomarkers</th>
+                        <th bgcolor=\"#CCCCFF\">6 to 7 Positive biomarkers</th>
+
+
+              </tr>";
+
+            echo "<tr>
+              <td align=\"left\">1 Year</td>
+              <td align=\"left\">90%</td>
+              <td align=\"left\">90-95%</td>
+              <td align=\"left\">95%</td>
+              <td align=\"left\">95-100%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">2 Years</td>
+              <td align=\"left\">70-75%</td>
+              <td align=\"left\">80-85%</td>
+              <td align=\"left\">85-90%</td>
+              <td align=\"left\">90-95%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">3 Years</td>
+              <td align=\"left\">55%</td>
+              <td align=\"left\">70%</td>
+              <td align=\"left\">75-80%</td>
+              <td align=\"left\">80-85%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">4 Years</td>
+              <td align=\"left\">45%</td>
+              <td align=\"left\">60-65%</td>
+              <td align=\"left\">70-75%</td>
+              <td align=\"left\">80%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">5 Years</td>
+              <td align=\"left\">40%</td>
+              <td align=\"left\">55-60%</td>
+              <td align=\"left\">65-70%</td>
+              <td align=\"left\">75-80%</td>
+
+            </tr>
+              <tr>
+              <td align=\"left\">6 Years</td>
+              <td align=\"left\">30%</td>
+              <td align=\"left\">45-50%</td>
+              <td align=\"left\">60-65%</td>
+              <td align=\"left\">70%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">7 Years</td>
+              <td align=\"left\">25-30%</td>
+              <td align=\"left\">40-45%</td>
+              <td align=\"left\">55-60%</td>
+              <td align=\"left\">65-70%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">8 Years</td>
+              <td align=\"left\">20-25%</td>
+              <td align=\"left\">40%</td>
+              <td align=\"left\">55%</td>
+              <td align=\"left\">65%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">>9 Years</td>
+              <td align=\"left\">>15-20%</td>
+              <td align=\"left\">>35%</td>
+              <td align=\"left\">>50%</td>
+              <td align=\"left\">60%</td>
+
+              </tr>
+              <tr>
+              <td align=\"left\">10 Years</td>
+              <td align=\"left\">15-20%</td>
+              <td align=\"left\">30-35%</td>
+              <td align=\"left\">45-50%</td>
+              <td align=\"left\">55-60%</td>
+
+              </tr>
+              </table>";
+              }
+//end paranthesis opened after file moving
              }
+
+//Connecting to DB
+
+
+
+                       // Create connection
+        //               $conn = new mysqli($servername, $username, $password);
+
+                       // Check connection
+          //             if ($conn->connect_error) {
+            //               die("Connection failed: " . $conn->connect_error);
+              //         }
+                //       echo "Connected successfully";
 // Checking Biomarkers
 
-if ($pyout >=0 && $pyout<=3)
-{
-  echo "<br>Suggested Treatments: NA <br />";
-  echo "<br />";
- echo "Treatments to Avoid : NA <br />";
- echo "<br />";
- }
- elseif ($pyout >=4 && $pyout<=6)
- {
-   echo "<br>Suggested Treatments: Radiation Therapy, Simple Mastectomy or Lumpectomy <br />";
-   echo "<br />";
-    echo "Treatments to Avoid : Modified Radical Mastectomy <br />";
-    echo "<br />";
- }
- elseif (($pyout >=7 && $pyout<=9))
- {
-   echo "<br>Suggested Treatments: Post-Op Drug Treatment<br />";
-   echo "<br />";
-    echo "Treatments to Avoid : NA <br />";
-    echo "<br />";
- }
 
 //Array for life expectacny
 
@@ -106,8 +486,6 @@ if ($pyout >=0 && $pyout<=3)
                array('15%', '55%' , '75-80%'),
                array('5%', '40-45%' , '70%'));
 
-          //  }   //added for debugging
-
         }
         else {
           echo "The file upload is failed";
@@ -116,7 +494,7 @@ if ($pyout >=0 && $pyout<=3)
                 echo "Your file is too big!";
             }
         }else {
-            echo "There was an error uplading your file";
+            echo "There is an error uplading your file";
         }
     //}
   //  else {
@@ -126,81 +504,5 @@ if ($pyout >=0 && $pyout<=3)
 ?>
 
 <html>
-Life expectancy of the patient is based on the Biomarkers. The below chart shows the rate of life expectacny in years VS the number of positive Biomarkers
-<p></p>
-<p>Life Expectancy rating.</p>
-<table class="GeneratedTable">
-<thead>
-<tr>
-<th>Count of Positive bio Marker <br />/ Life expectancy</th>
-<th>0 to 3</th>
-<th>4 to 6</th>
-<th>7 to 9</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1 Year</td>
-<td>90-95%</td>
-<td>95-100%</td>
-<td>95-100%</td>
-</tr>
-<tr>
-<td>2 Years</td>
-<td>80-85%</td>
-<td>95%</td>
-<td>95-100%</td>
-</tr>
-<tr>
-<td>3 Years</td>
-<td>60-65%</td>
-<td>85-90%</td>
-<td>95%</td>
-</tr>
-<tr>
-<td>4 Years</td>
-<td>50%</td>
-<td>80-85%</td>
-<td>90-95%</td>
-</tr>
-<tr>
-<td>5 Years</td>
-<td>40%</td>
-<td>75-80%</td>
-<td>90%</td>
-</tr>
-<tr>
-<td>6 Years</td>
-<td>35%</td>
-<td>75%</td>
-<td>85-90%</td>
-</tr>
-<tr>
-<td>7 Years</td>
-<td>25-30%</td>
-<td>70%</td>
-<td>85%</td>
-</tr>
-<tr>
-<td>8 Years</td>
-<td>20%</td>
-<td>60-65%</td>
-<td>80-85%</td>
-</tr>
-<tr>
-<td>9 Years</td>
-<td>15%</td>
-<td>55%</td>
-<td>75-80%</td>
-</tr>
-<tr>
-<td>10 Years</td>
-<td>5%</td>
-<td>40-45%</td>
-<td>70%</td>
-</tr>
-</tbody>
-</table>
-
-<p></p>
-</html>
+Disclaimer:
+XXXXXX </html>

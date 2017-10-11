@@ -1,75 +1,86 @@
 body {
-	margin: 0;
-	width: 100%;
-}
-
-header {
-	display: block;
-	border: solid #069A06 3px;
 	margin: auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	width: 50%;
-}
+	padding-left: 20px;
 
-ul {
-	float: left;
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-}
-
-li {
-	margin-top: 10px;
-	display: block;
-	border: solid green 2px;
-	padding: 10px 20px;
 }
 
 
 h1 {
     color: purple;
     text-align: center;
-    font-family: sans-serif;
 }
 
 p {
-	display: block;
     font-family: verdana;
-    font-size: 130%;
-    font-family: sans-serif;
-    margin: auto;
-    width: 50%;
+    font-size: 20px;
 }
 
-#menu {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	padding-top: 60px;
-	transition: 0.5s;
-	background-color: #111;
 
-}
-
-#logo{
-	text-align: center;
-	border-color: green
-}
-
-#Welcome{
-	
-}
 
 form {
-	padding-top: 20px;
 	text-align: center;
 }
 
 input{
 	text-decoration-color: white;
+
+	table.blueTable {
+	  border: 1px solid #1C6EA4;
+	  background-color: #EEEEEE;
+	  width: 100%;
+	  text-align: left;
+	  border-collapse: collapse;
+	}
+	table.blueTable td, table.blueTable th {
+	  border: 1px solid #AAAAAA;
+	  padding: 3px 2px;
+	}
+	table.blueTable tbody td {
+	  font-size: 13px;
+	}
+	table.blueTable tr:nth-child(even) {
+	  background: #D0E4F5;
+	}
+	table.blueTable thead {
+	  background: #1C6EA4;
+	  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+	  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+	  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+	  border-bottom: 2px solid #444444;
+	}
+	table.blueTable thead th {
+	  font-size: 15px;
+	  font-weight: bold;
+	  color: #FFFFFF;
+	  border-left: 2px solid #D0E4F5;
+	}
+	table.blueTable thead th:first-child {
+	  border-left: none;
+	}
+
+	table.blueTable tfoot {
+	  font-size: 14px;
+	  font-weight: bold;
+	  color: #FFFFFF;
+	  background: #D0E4F5;
+	  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+	  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+	  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+	  border-top: 2px solid #444444;
+	}
+	table.blueTable tfoot td {
+	  font-size: 14px;
+	}
+	table.blueTable tfoot .links {
+	  text-align: right;
+	}
+	table.blueTable tfoot .links a{
+	  display: inline-block;
+	  background: #1C6EA4;
+	  color: #FFFFFF;
+	  padding: 2px 8px;
+	  border-radius: 5px;
+	}
 
 }

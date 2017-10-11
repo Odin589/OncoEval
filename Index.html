@@ -1,46 +1,29 @@
 <!doctype html>
 <html>
-	<head>
+<head>
 
-	  <meta charset="utf-8">
-	  <title>Lipscomb</title>
-	  <link rel="stylesheet" type="text/css" href="mystyle.css">
+  <meta charset="utf-8">
+  <title>OncoEval</title>
+  <link rel="stylesheet" type="text/css" href="mystyle.css">
 
-	</head>
+</head>
+<body>
 
-		<header>
 
-			<div id="logo">
+<img class="logo" src="./logo.png" width="440" height="140">
 
-			<img class="Pic" src="./OncoEval.png" width="340" height="240">
+<p>Welcome to OncoEval 1.0 </p>
+ <form action="upload.php" method="post" enctype="multipart/form-data">
+   <select name="cancer_type">
+     <option value="Breast">Breast</option>
+     <option value="Lung">Lung Non-Small cell </option>
+     <option value="Melanoma">Melanoma</option>
+   </select>
+    <input type="file" name="file" id="file">
+    <input type="submit" value="Upload a file" name="submit">
 
-			</div>
+</form>
 
-		</header>
-
-	<body>
-		<div id="menu">
-			<ul>
-			  <li>Home</li>
-			  <li>Stats</li>
-			  <li>About</li>
-			</ul>
-		</div>
-
-		<div>
-
-		<p id="Welcome">Welcome to OncoEval 1.0 </p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad lito</p>
-		
-		</div>
-
-		 <form action="upload.php" method="post" enctype="multipart/form-data">
-
-		    <input type="file" name="file" id="file">
-		    <input type="submit" value="Upload a file" name="submit">
-		
-		</form>
-
-	</body>
-
+</div>
+</body>
 </html>
